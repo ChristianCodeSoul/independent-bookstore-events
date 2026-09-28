@@ -10,9 +10,7 @@
 </head>
 
 <body>
-
     <div class="page-container">
-
         <header class="top-header">
             <div class="brand-group">
                 <h1 class="brand-name">Bookstore Events</h1>
@@ -22,9 +20,9 @@
         </header>
 
         <main class="main-body">
-
             <section aria-labelledby="metrics-title">
                 <h2 id="metrics-title" class="sr-only">Dashboard Summary</h2>
+
                 <div class="metrics-row">
                     <div class="metric-card">
                         <span class="metric-label">TOTAL EVENTS</span>
@@ -88,12 +86,12 @@
 
                 <div id="loading-bar" class="sync-indicator hidden" aria-live="polite">
                     <div class="spinner-ring"></div>
-                    <span>Syncing events data...</span>
+                    <span>Loading updates...</span>
                 </div>
 
                 <div id="empty-notice" class="empty-box hidden" aria-live="polite">
                     <p class="empty-heading">No events found</p>
-                    <p class="empty-subtext">No events match your current filter parameters.</p>
+                    <p class="empty-subtext">Try adjusting your filters.</p>
                 </div>
 
                 <div id="events-grid" class="cards-grid"></div>
@@ -104,9 +102,9 @@
                     <h2 id="telemetry-heading" class="telemetry-title">System Telemetry</h2>
                     <button type="button" id="btn-clear-console" class="btn-clear">CLEAR CONSOLE</button>
                 </div>
+
                 <div id="telemetry-terminal" class="terminal-box" aria-live="polite"></div>
             </section>
-
         </main>
     </div>
 
@@ -125,14 +123,14 @@
                     <input type="text" id="form-title" class="field-input"
                         placeholder="e.g. Local Authors Meet &amp; Greet" aria-describedby="error-title"
                         aria-invalid="false">
-                    <span id="error-title" class="field-error">Title is required.</span>
+                    <span id="error-title" class="field-error">Event title required</span>
                 </div>
 
                 <div class="form-field">
                     <label for="form-author" class="form-label">Author / Host <span class="required">*</span></label>
                     <input type="text" id="form-author" class="field-input" placeholder="e.g. Jake Sully"
                         aria-describedby="error-author" aria-invalid="false">
-                    <span id="error-author" class="field-error">Host name is required.</span>
+                    <span id="error-author" class="field-error">Host name required</span>
                 </div>
 
                 <div class="form-row">
@@ -147,7 +145,7 @@
                             <option value="Poetry Reading">Poetry Reading</option>
                             <option value="Children's Storytime">Children's Storytime</option>
                         </select>
-                        <span id="error-category" class="field-error">Category is required.</span>
+                        <span id="error-category" class="field-error">Category required</span>
                     </div>
 
                     <div class="form-field">
@@ -166,7 +164,7 @@
                                 class="required">*</span></label>
                         <input type="datetime-local" id="form-date" class="field-input" aria-describedby="error-date"
                             aria-invalid="false">
-                        <span id="error-date" class="field-error">Please select a valid future date &amp; time.</span>
+                        <span id="error-date" class="field-error">Please choose a future date and time.</span>
                     </div>
 
                     <div class="form-field">
@@ -174,8 +172,7 @@
                                 class="required">*</span></label>
                         <input type="number" id="form-total-seats" class="field-input" placeholder="40" min="1" step="1"
                             value="40" aria-describedby="error-seats" aria-invalid="false">
-                        <span id="error-seats" class="field-error">Valid positive whole number seat count
-                            required.</span>
+                        <span id="error-seats" class="field-error">Enter a valid seat count.</span>
                     </div>
                 </div>
 
@@ -183,7 +180,7 @@
                     <label for="form-desc" class="form-label">Description <span class="required">*</span></label>
                     <textarea id="form-desc" class="field-input field-textarea" rows="3" placeholder="Event overview..."
                         aria-describedby="error-desc" aria-invalid="false"></textarea>
-                    <span id="error-desc" class="field-error">Description is required.</span>
+                    <span id="error-desc" class="field-error">Description required</span>
                 </div>
 
                 <div class="dialog-actions">
