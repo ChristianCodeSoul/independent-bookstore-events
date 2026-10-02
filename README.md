@@ -1,5 +1,6 @@
 
 # Independent Bookstore Events Portal
+https://independent-bookstore-events-ashen.vercel.app
 
 A zero dependency event management interface for bookstore floor staff. Replaces paper logs and spreadsheets with a single-page app to track readings, book clubs, workshops, and RSVPs.
 
