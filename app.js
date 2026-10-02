@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
             seatsTotal: 40,
             description: 'Join us for an evening with three local authors discussing contemporary fiction.'
         },
+        
         {
             id: 102,
             title: 'Classic Fiction Discussion Club',
@@ -26,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let filterTimeout = null;
     let lastActiveElement = null;
-
     const searchInput = document.getElementById('search-input');
     const categorySelect = document.getElementById('category-select');
     const statusSelect = document.getElementById('status-select');
@@ -34,25 +34,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const emptyNotice = document.getElementById('empty-notice');
     const loadingBar = document.getElementById('loading-bar');
     const terminal = document.getElementById('telemetry-terminal');
-
     const metricTotal = document.getElementById('metric-total');
     const metricUpcoming = document.getElementById('metric-upcoming');
     const metricOngoing = document.getElementById('metric-ongoing');
     const metricRsvps = document.getElementById('metric-rsvps');
-
     const btnGrid = document.getElementById('btn-grid');
     const btnList = document.getElementById('btn-list');
     const btnOpenModal = document.getElementById('btn-open-modal');
     const btnCloseModal = document.getElementById('btn-close-modal');
     const btnCancelModal = document.getElementById('btn-cancel-modal');
     const btnClearConsole = document.getElementById('btn-clear-console');
-
     const modalOverlay = document.getElementById('modal-overlay');
     const eventForm = document.getElementById('event-form');
 
     function sanitize(str) {
         if (typeof str !== 'string') return '';
-
         return str
             .replace(/&/g, '&amp;')
             .replace(/</g, '&lt;')
@@ -63,10 +59,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function formatDate(value) {
         if (!value) return '';
-
         const date = new Date(value);
         if (isNaN(date.getTime())) return value;
-
         return date.toLocaleString('en-US', {
             weekday: 'short',
             month: 'short',
@@ -79,13 +73,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function logTelemetry(message) {
         const time = new Date().toLocaleTimeString();
         const text = `[Analytics] ${message}`;
-
         console.log(text);
-
         const line = document.createElement('div');
         line.className = 'terminal-line';
         line.textContent = `[${time}] ${text}`;
-
         terminal.appendChild(line);
         terminal.scrollTop = terminal.scrollHeight;
     }
@@ -101,39 +92,29 @@ document.addEventListener('DOMContentLoaded', () => {
         const query = searchInput.value.toLowerCase().trim();
         const category = categorySelect.value;
         const status = statusSelect.value;
-
-        const filtered = events.filter(event => {
+        const filtered = events.filter(event => { 
             const matchesSearch =
-                event.title.toLowerCase().includes(query) ||
-                event.author.toLowerCase().includes(query) ||
+                event.title.toLowerCase().includes(query) || 
+                event.author.toLowerCase().includes(query) || 
                 event.description.toLowerCase().includes(query);
-
-            return matchesSearch &&
-                (!category || event.category === category) &&
+            return matchesSearch && (
+                !category || event.category === category) && 
                 (!status || event.status === status);
         });
-
         updateMetrics();
         eventsGrid.innerHTML = '';
-
         if (!filtered.length) {
             emptyNotice.classList.remove('hidden');
             return;
         }
 
         emptyNotice.classList.add('hidden');
-
         filtered.forEach(event => {
             const card = document.createElement('article');
             card.className = 'event-card';
-
-            const soldOut =
-                event.seatsTaken >= event.seatsTotal ||
-                event.status === 'Sold Out';
-
+            const soldOut = event.seatsTaken >= event.seatsTotal || event.status === 'Sold Out';
             const badgeClass = soldOut ? 'bg-muted' : 'bg-dark';
             const badgeText = soldOut ? 'SOLD OUT' : event.status.toUpperCase();
-
             card.innerHTML = `
                 <div class="tags-row">
                     <span class="tag-badge ${badgeClass}">${event.category}</span>
@@ -147,11 +128,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <p class="card-desc">${event.description}</p>
                 <button
-                    type="button"
-                    class="btn-action ${soldOut ? 'disabled-rsvp' : 'active-rsvp'}"
-                    data-id="${event.id}"
-                    ${soldOut ? 'disabled aria-disabled="true"' : ''}
-                >${soldOut ? 'FULLY BOOKED' : 'RSVP SEAT'}</button>
+                type="button"
+                class="btn-action ${soldOut ? 'disabled-rsvp' : 'active-rsvp'}"
+                data-id="${event.id}"
+                ${soldOut ? 'disabled aria-disabled="true"' : ''}
+                >
+                ${soldOut ? 'FULLY BOOKED' : 'RSVP SEAT'}</button>
             `;
 
             eventsGrid.appendChild(card);
@@ -166,11 +148,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function triggerAsyncFilter(message) {
         if (filterTimeout) clearTimeout(filterTimeout);
-
         loadingBar.classList.remove('hidden');
         eventsGrid.classList.add('hidden');
         emptyNotice.classList.add('hidden');
-
         filterTimeout = setTimeout(() => {
             loadingBar.classList.add('hidden');
             eventsGrid.classList.remove('hidden');
@@ -182,32 +162,25 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleRSVP(eventId) {
         loadingBar.classList.remove('hidden');
         eventsGrid.classList.add('hidden');
-
         setTimeout(() => {
             const event = events.find(item => item.id === eventId);
-
             if (event && event.seatsTaken < event.seatsTotal) {
                 event.seatsTaken++;
-
                 if (event.seatsTaken >= event.seatsTotal) {
                     event.status = 'Sold Out';
                 }
-
                 logTelemetry(`RSVP seat reserved for "${event.title}"`);
             }
-
             loadingBar.classList.add('hidden');
             eventsGrid.classList.remove('hidden');
             renderEvents();
         }, 300);
     }
-
     function setFieldError(input, error, hasError) {
         input.classList.toggle('has-error', hasError);
         error.classList.toggle('active', hasError);
         input.setAttribute('aria-invalid', String(hasError));
     }
-
     function resetValidation() {
         const fields = [
             ['form-title', 'error-title'],
@@ -217,7 +190,6 @@ document.addEventListener('DOMContentLoaded', () => {
             ['form-total-seats', 'error-seats'],
             ['form-desc', 'error-desc']
         ];
-
         fields.forEach(([inputId, errorId]) => {
             setFieldError(
                 document.getElementById(inputId),
@@ -226,13 +198,11 @@ document.addEventListener('DOMContentLoaded', () => {
             );
         });
     }
-
+    
     function openModal() {
         lastActiveElement = document.activeElement;
-
         modalOverlay.classList.remove('hidden');
         document.body.style.overflow = 'hidden';
-
         document.getElementById('form-title').focus();
         logTelemetry('Opened Host Event dialog modal');
     }
@@ -240,19 +210,14 @@ document.addEventListener('DOMContentLoaded', () => {
     function closeModal() {
         modalOverlay.classList.add('hidden');
         document.body.style.overflow = '';
-
         eventForm.reset();
         resetValidation();
-
-        if (lastActiveElement && typeof lastActiveElement.focus === 'function') {
-            lastActiveElement.focus();
-        }
+        if (lastActiveElement && typeof lastActiveElement.focus === 'function') { lastActiveElement.focus()}   
     }
 
-    eventForm.addEventListener('submit', event => {
-        event.preventDefault();
+    eventForm.addEventListener('submit', event => { 
+        event.preventDefault();                     
         resetValidation();
-
         const title = document.getElementById('form-title');
         const author = document.getElementById('form-author');
         const category = document.getElementById('form-category');
@@ -262,7 +227,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const status = document.getElementById('form-status');
 
         let valid = true;
-
         if (!title.value.trim()) {
             setFieldError(title, document.getElementById('error-title'), true);
             valid = false;
