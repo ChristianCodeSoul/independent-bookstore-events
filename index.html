@@ -20,9 +20,9 @@
         </header>
 
         <main class="main-body">
+            
             <section aria-labelledby="metrics-title">
                 <h2 id="metrics-title" class="sr-only">Dashboard Summary</h2>
-
                 <div class="metrics-row">
                     <div class="metric-card">
                         <span class="metric-label">TOTAL EVENTS</span>
@@ -45,13 +45,10 @@
 
             <section aria-labelledby="filter-title" class="controls-bar">
                 <h2 id="filter-title" class="sr-only">Filter and Search Events</h2>
-
                 <div class="search-box">
                     <label for="search-input" class="sr-only">Search title, author, host, description</label>
-                    <input type="text" id="search-input" class="field-input"
-                        placeholder="Search title, author, description..." autocomplete="off">
+                    <input type="text" id="search-input" class="field-input" placeholder="Search events..." autocomplete="off">
                 </div>
-
                 <div class="dropdown-box">
                     <label for="category-select" class="sr-only">Filter by Category</label>
                     <select id="category-select" class="field-select">
@@ -63,7 +60,6 @@
                         <option value="Children's Storytime">Children's Storytime</option>
                     </select>
                 </div>
-
                 <div class="dropdown-box">
                     <label for="status-select" class="sr-only">Filter by Status</label>
                     <select id="status-select" class="field-select">
@@ -74,7 +70,6 @@
                         <option value="Sold Out">Sold Out</option>
                     </select>
                 </div>
-
                 <div class="view-toggle" role="group" aria-label="Layout View Switcher">
                     <button type="button" id="btn-grid" class="toggle-option active" aria-pressed="true">Grid</button>
                     <button type="button" id="btn-list" class="toggle-option" aria-pressed="false">List</button>
@@ -82,62 +77,48 @@
             </section>
 
             <section aria-labelledby="events-list-title">
-                <h2 id="events-list-title" class="sr-only">Events Listings</h2>
-
+                <h2 id="events-list-title" class="sr-only">Event Listings</h2>
                 <div id="loading-bar" class="sync-indicator hidden" aria-live="polite">
                     <div class="spinner-ring"></div>
                     <span>Loading updates...</span>
                 </div>
-
                 <div id="empty-notice" class="empty-box hidden" aria-live="polite">
                     <p class="empty-heading">No events found</p>
                     <p class="empty-subtext">Try adjusting your filters.</p>
                 </div>
-
                 <div id="events-grid" class="cards-grid"></div>
             </section>
-
             <section aria-labelledby="telemetry-heading" class="telemetry-card">
                 <div class="telemetry-header">
                     <h2 id="telemetry-heading" class="telemetry-title">System Telemetry</h2>
                     <button type="button" id="btn-clear-console" class="btn-clear">CLEAR CONSOLE</button>
                 </div>
-
                 <div id="telemetry-terminal" class="terminal-box" aria-live="polite"></div>
             </section>
         </main>
     </div>
 
-    <div id="modal-overlay" class="dialog-overlay hidden" role="dialog" aria-modal="true"
-        aria-labelledby="modal-heading-text">
+    <div id="modal-overlay" class="dialog-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-heading-text">
         <div class="dialog-box">
             <div class="dialog-header">
                 <h2 id="modal-heading-text" class="dialog-title">Host New Event</h2>
-                <button type="button" id="btn-close-modal" class="dialog-close"
-                    aria-label="Close modal">&times;</button>
+                <button type="button" id="btn-close-modal" class="dialog-close" aria-label="Close modal">&times;</button>
             </div>
-
             <form id="event-form" class="dialog-form" novalidate>
                 <div class="form-field">
                     <label for="form-title" class="form-label">Event Title <span class="required">*</span></label>
-                    <input type="text" id="form-title" class="field-input"
-                        placeholder="e.g. Local Authors Meet &amp; Greet" aria-describedby="error-title"
-                        aria-invalid="false">
-                    <span id="error-title" class="field-error">Event title required</span>
+                    <input type="text" id="form-title" class="field-input" placeholder="e.g. Local Authors Meet &amp; Greet" aria-describedby="error-title" aria-invalid="false">
+                    <span id="error-title" class="field-error">Event title is required</span>
                 </div>
-
                 <div class="form-field">
                     <label for="form-author" class="form-label">Author / Host <span class="required">*</span></label>
-                    <input type="text" id="form-author" class="field-input" placeholder="e.g. Jake Sully"
-                        aria-describedby="error-author" aria-invalid="false">
-                    <span id="error-author" class="field-error">Host name required</span>
+                    <input type="text" id="form-author" class="field-input" placeholder="e.g. Jake Sully" aria-describedby="error-author" aria-invalid="false">
+                    <span id="error-author" class="field-error">Host name is required</span>
                 </div>
-
                 <div class="form-row">
                     <div class="form-field">
                         <label for="form-category" class="form-label">Category <span class="required">*</span></label>
-                        <select id="form-category" class="field-select" aria-describedby="error-category"
-                            aria-invalid="false">
+                        <select id="form-category" class="field-select" aria-describedby="error-category" aria-invalid="false">
                             <option value="">Select Category</option>
                             <option value="Author Signing">Author Signing</option>
                             <option value="Book Club">Book Club</option>
@@ -145,9 +126,8 @@
                             <option value="Poetry Reading">Poetry Reading</option>
                             <option value="Children's Storytime">Children's Storytime</option>
                         </select>
-                        <span id="error-category" class="field-error">Category required</span>
+                        <span id="error-category" class="field-error">Category is required</span>
                     </div>
-
                     <div class="form-field">
                         <label for="form-status" class="form-label">Status <span class="required">*</span></label>
                         <select id="form-status" class="field-select">
@@ -157,32 +137,23 @@
                         </select>
                     </div>
                 </div>
-
                 <div class="form-row">
                     <div class="form-field">
-                        <label for="form-date" class="form-label">Date &amp; Time <span
-                                class="required">*</span></label>
-                        <input type="datetime-local" id="form-date" class="field-input" aria-describedby="error-date"
-                            aria-invalid="false">
-                        <span id="error-date" class="field-error">Please choose a future date and time.</span>
+                        <label for="form-date" class="form-label">Date &amp; Time <span class="required">*</span></label>
+                        <input type="datetime-local" id="form-date" class="field-input" aria-describedby="error-date" aria-invalid="false">
+                        <span id="error-date" class="field-error">Please choose a valid date and time.</span>
                     </div>
-
                     <div class="form-field">
-                        <label for="form-total-seats" class="form-label">Total Seats <span
-                                class="required">*</span></label>
-                        <input type="number" id="form-total-seats" class="field-input" placeholder="40" min="1" step="1"
-                            value="40" aria-describedby="error-seats" aria-invalid="false">
+                        <label for="form-total-seats" class="form-label">Total Seats <span class="required">*</span></label>
+                        <input type="number" id="form-total-seats" class="field-input" placeholder="40" min="1" step="1" value="40" aria-describedby="error-seats" aria-invalid="false">
                         <span id="error-seats" class="field-error">Enter a valid seat count.</span>
                     </div>
                 </div>
-
                 <div class="form-field">
                     <label for="form-desc" class="form-label">Description <span class="required">*</span></label>
-                    <textarea id="form-desc" class="field-input field-textarea" rows="3" placeholder="Event overview..."
-                        aria-describedby="error-desc" aria-invalid="false"></textarea>
-                    <span id="error-desc" class="field-error">Description required</span>
+                    <textarea id="form-desc" class="field-input field-textarea" rows="3" placeholder="Event overview..." aria-describedby="error-desc" aria-invalid="false"></textarea>
+                    <span id="error-desc" class="field-error">Description is required</span>
                 </div>
-
                 <div class="dialog-actions">
                     <button type="button" id="btn-cancel-modal" class="btn-white">Cancel</button>
                     <button type="submit" class="btn-black">Save Event</button>
@@ -190,8 +161,6 @@
             </form>
         </div>
     </div>
-
     <script src="app.js" defer></script>
 </body>
-
 </html>
